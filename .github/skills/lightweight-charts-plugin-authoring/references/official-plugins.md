@@ -1,4 +1,4 @@
-# The ten official plugins, and what each one teaches
+# The eleven official plugins, and what each one teaches
 
 Upstream: `packages/lwc-plugin-<name>/`. Published: `@tradingview/lwc-plugin-<name>`,
 which ships the README and `dist/` (`.js` + `.d.ts`) but not the source. From
@@ -108,6 +108,16 @@ frame), positioning from the *pane's* size rather than the chart element,
 `objectFit`/`position`/`padding` layout, `zOrder`, a decoded-image cache by
 URL, and `detached()` cancelling a pending load.
 
+### `session-highlighting` — per-bar background from the series' own data
+
+`SessionHighlighting` shades a full-height column behind every bar with the
+colour a user function returns for its time. Read for: deriving per-bar state
+from `series.data()` in `dataUpdated` and touching only the last bar on an
+`'update'` scope, mapping the visible logical range back to data indices by
+binary search over `timeToIndex` (so other series starting earlier do not
+shift the slice), `fullBarWidth` from the time scale's `barSpacing` so columns
+abut at any pixel ratio, and `zOrder: 'bottom'` for a background.
+
 ## Pane primitives
 
 ### `accessibility` — DOM overlays and multi-pane lifecycle
@@ -119,7 +129,7 @@ through reordering (the constructor index is only a pre-build hint; the first
 draw's canvas resolves the real pane), a single shared ARIA-live region,
 `subscribeMediaQuery` for high contrast, message bundles and localisation,
 keyboard handling on the overlay, and a controller that reconciles panes added
-or removed at runtime. Also the largest test suite of the ten; its
+or removed at runtime. Also the largest test suite of the eleven; its
 `pane-reorder`, `mismatched-pane-index` and `announce-callback-throws`
 interaction tests show how to assert on DOM state.
 
@@ -127,9 +137,9 @@ interaction tests show how to assert on DOM state.
 
 Upstream `plugin-examples/src/plugins/` holds unpublished proof-of-concept
 plugins: tooltips and delta tooltips, a rectangle drawing tool, trend lines,
-session highlighting, a heatmap series, lollipop, grouped bars, box-whisker,
+a heatmap series, lollipop, grouped bars, box-whisker,
 background shading, price alerts, a volume profile, a partial price line,
 crosshair highlighting, and anchored text. Good for seeing the shape of an
 idea; they predate the toolkit and skip the tests and README the packages
-carry, so use the official plugins for *how* and these for *what*. The ten
+carry, so use the official plugins for *how* and these for *what*. The eleven
 graduated plugins' folders there are redirect stubs to the packages.
